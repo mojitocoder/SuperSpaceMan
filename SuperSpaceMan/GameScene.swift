@@ -13,7 +13,10 @@ class GameScene: SKScene {
     override init(size: CGSize) {
     
         super.init(size: size)
-    
+        
+        println("Default gravity dy: \(physicsWorld.gravity.dy)")
+        physicsWorld.gravity = CGVectorMake(0.0, -1.0) //change the gravity of the game scene
+        
         println("Size : \(size)")
         backgroundColor = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     
@@ -26,7 +29,9 @@ class GameScene: SKScene {
         
         // add the player
         playerNode = SKSpriteNode(imageNamed: "Player")
-        playerNode!.position = CGPoint(x: size.width / 2.0, y: 80.0)
+        playerNode!.position = CGPoint(x: size.width / 2.0, y: size.height - 100)
+        playerNode!.physicsBody = SKPhysicsBody(circleOfRadius: playerNode!.size.width / 2) //attach an SKPhysicsBody into the SKPriteNode
+        playerNode!.physicsBody!.dynamic = true
         addChild(playerNode!)
         
         //extra players
