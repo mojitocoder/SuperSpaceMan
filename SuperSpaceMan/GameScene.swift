@@ -1,4 +1,5 @@
 import SpriteKit
+import CoreMotion
 
 class GameScene: SKScene, SKPhysicsContactDelegate  {
     
@@ -8,6 +9,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     var playerNode : SKSpriteNode?
     var orbNode : SKSpriteNode?
     var impulseCount : Int32 = 4
+    
+    let coreMotionManager = CMMotionManager()
+    var xAxisAcceleration : CGFloat = 0.0
     
     //constants
     let gravityPower : CGFloat = -5.0
@@ -100,7 +104,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
         //this is to activate the game and start playing
         if !playerNode!.physicsBody!.dynamic {
+            
             playerNode!.physicsBody!.dynamic = true
+            
+            //listen to the accelerometer sensor events here
+            self.coreMotionManager.accelerometerUpdateInterval = 0.3
+            coreMotionManager.startAccelerometerUpdatesToQueue(NSOperationQueue(), withHandler: {
+                (data: CMAccelerometerData!, error: NSError!) in
+                
+                if let constVar = error {
+                    println("There was an error")
+                }
+                else {
+                    self.xAxisAcceleration = CGFloat(data!.acceleration.x)
+                }
+                
+            })
         }
         
         if (impulseCount > 0) {
@@ -128,6 +147,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             
             foregroundNode!.position = CGPointMake(foregroundNode!.position.x, -(playerNode!.position.y - 180))
         }
+    }
+    
+    override func didSimulatePhysics() {
+        playerNode!.physicsBody!.velocity = CGVectorMake(self.xAxisAcceleration * 380.0, playerNode!.physicsBody!.velocity.dy)
+                
+        if playerNode!.position.x < -(playerNode!.size.width / 2) {
+            playerNode!.position = CGPointMake(size.width - playerNode!.size.width / 2, playerNode!.position.y);
+        }
+        else if self.playerNode!.position.x > self.size.width {
+            playerNode!.position = CGPointMake(playerNode!.size.width / 2, playerNode!.position.y);
+        }
+    }
+    
+    deinit {
+        self.coreMotionManager.stopAccelerometerUpdates()
     }
     
     func addOrbs(orbCount:Int, positionX:CGFloat, initialPositionY:CGFloat, yDistance:CGFloat)
