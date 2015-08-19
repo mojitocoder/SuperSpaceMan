@@ -66,13 +66,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         // *********************
         // add the orb into the game
         // *********************
-        orbNode = SKSpriteNode(imageNamed: "PowerUp")
-        orbNode!.name = orbName
-        orbNode!.position = CGPoint(x: 150.0, y: size.height - 25)
-        orbNode!.physicsBody = SKPhysicsBody(circleOfRadius: orbNode!.size.width / 2)
-        orbNode!.physicsBody!.dynamic = false
-        //addChild(orbNode!)
-        foregroundNode!.addChild(orbNode!)
+        //addOrbs(19, playerNode!.position.x, playerNode!.position.y + 50.0, 140.0)
+        addOrbs(19, positionX: playerNode!.position.x, initialPositionY: playerNode!.position.y + 200, yDistance: 140.0)
+        
+//        orbNode = SKSpriteNode(imageNamed: "PowerUp")
+//        orbNode!.name = orbName
+//        orbNode!.position = CGPoint(x: 150.0, y: size.height - 25)
+//        orbNode!.physicsBody = SKPhysicsBody(circleOfRadius: orbNode!.size.width / 2)
+//        orbNode!.physicsBody!.dynamic = false
+//        //addChild(orbNode!)
+//        foregroundNode!.addChild(orbNode!)
         
         //extra players
         var extraPlayerName = "extraPlayer"
@@ -113,6 +116,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
         if nodeB.name == orbName {
             nodeB.removeFromParent()
+        }
+    }
+    
+    func addOrbs(orbCount:Int, positionX:CGFloat, initialPositionY:CGFloat, yDistance:CGFloat)
+    {
+        var orbNodePosition = CGPointMake(positionX, initialPositionY)
+        
+        for i in 0...orbCount {
+            
+            var orbNode = SKSpriteNode(imageNamed: "PowerUp")
+            
+            orbNode.position = orbNodePosition
+            
+            orbNode.physicsBody = SKPhysicsBody(circleOfRadius: orbNode.size.width / 2)
+            orbNode.physicsBody!.dynamic = false
+            
+            orbNode.physicsBody!.categoryBitMask = CollisionCategoryPowerUpOrbs
+            orbNode.physicsBody!.collisionBitMask = 0;
+            orbNode.name = orbName
+            
+            foregroundNode!.addChild(orbNode)
+
+            orbNodePosition.y += yDistance
         }
     }
 }
