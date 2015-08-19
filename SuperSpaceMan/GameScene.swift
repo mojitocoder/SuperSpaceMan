@@ -116,6 +116,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
         if nodeB.name == orbName {
             nodeB.removeFromParent()
+            impulseCount++
+        }
+    }
+    
+    override func update(currentTime: NSTimeInterval) {
+        
+        if playerNode!.position.y >= 180.0 {
+            
+            self.backgroundNode!.position = CGPointMake(self.backgroundNode!.position.x, -((self.playerNode!.position.y - 180)/8))
+            
+            foregroundNode!.position = CGPointMake(foregroundNode!.position.x, -(playerNode!.position.y - 180))
         }
     }
     
