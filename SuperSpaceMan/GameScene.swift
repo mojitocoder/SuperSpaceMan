@@ -2,13 +2,18 @@ import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate  {
     
+    //variables
+    var foregroundNode : SKSpriteNode?
     var backgroundNode : SKSpriteNode?
     var playerNode : SKSpriteNode?
     var orbNode : SKSpriteNode?
+    var impulseCount : Int32 = 4
     
+    //constants
+    let gravityPower : CGFloat = -5.0
+    let impulsePower : CGFloat = 40.0
     let CollisionCategoryPlayer     : UInt32 = 0x1 << 1
     let CollisionCategoryPowerUpOrbs : UInt32 = 0x1 << 2
-    
     let orbName : String = "powerOrb"
 
     required init?(coder aDecoder: NSCoder) {
@@ -23,7 +28,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         userInteractionEnabled = true //to allow user interaction with the game
         
         println("Default gravity dy: \(physicsWorld.gravity.dy)")
-        physicsWorld.gravity = CGVectorMake(0.0, -1.0) //change the gravity of the game scene
+        physicsWorld.gravity = CGVectorMake(0.0, gravityPower) //change the gravity of the game scene
         
         println("Size : \(size)")
         backgroundColor = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
@@ -35,11 +40,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         backgroundNode!.position = CGPoint(x: size.width / 2.0, y: 0.0)
         addChild(backgroundNode!)
         
+        // *********************
+        // adding foreground
+        // *********************
+        foregroundNode = SKSpriteNode()
+        addChild(foregroundNode!)
+        
+        // *********************
         // add the player
+        // *********************
         playerNode = SKSpriteNode(imageNamed: "Player")
-        playerNode!.position = CGPoint(x: size.width / 2.0, y: size.height - 100)
+        playerNode!.position = CGPoint(x: self.size.width / 2.0, y: 180.0)
         playerNode!.physicsBody = SKPhysicsBody(circleOfRadius: playerNode!.size.width / 2) //attach an SKPhysicsBody into the SKPriteNode
-        playerNode!.physicsBody!.dynamic = true
+        playerNode!.physicsBody!.dynamic = false
         playerNode!.physicsBody!.allowsRotation = false //stop the node from spinning upon collision
         playerNode!.physicsBody!.linearDamping = 1.0 //dampen the velocity to simulate air friction
         
@@ -47,17 +60,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         playerNode!.physicsBody!.categoryBitMask = CollisionCategoryPlayer
         playerNode!.physicsBody!.contactTestBitMask = CollisionCategoryPowerUpOrbs
         playerNode!.physicsBody!.collisionBitMask = 0 //this line means that you are going to handle the collision yourself, i.e. remove the default behaviour
-        
-        addChild(playerNode!)
-        
-        
-        //add the orb into the game
+
+        foregroundNode!.addChild(playerNode!)
+   
+        // *********************
+        // add the orb into the game
+        // *********************
         orbNode = SKSpriteNode(imageNamed: "PowerUp")
         orbNode!.name = orbName
         orbNode!.position = CGPoint(x: 150.0, y: size.height - 25)
         orbNode!.physicsBody = SKPhysicsBody(circleOfRadius: orbNode!.size.width / 2)
         orbNode!.physicsBody!.dynamic = false
-        addChild(orbNode!)
+        //addChild(orbNode!)
+        foregroundNode!.addChild(orbNode!)
         
         //extra players
         var extraPlayerName = "extraPlayer"
@@ -79,7 +94,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        playerNode!.physicsBody!.applyImpulse(CGVectorMake(0.0, 20.0))
+
+        //this is to activate the game and start playing
+        if !playerNode!.physicsBody!.dynamic {
+            playerNode!.physicsBody!.dynamic = true
+        }
+        
+        if (impulseCount > 0) {
+            playerNode!.physicsBody!.applyImpulse(CGVectorMake(0.0, impulsePower))
+            impulseCount--
+        }
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
