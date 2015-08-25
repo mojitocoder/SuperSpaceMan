@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperSpaceMan/GameScene.swift"
-            timestampString = "461615591.832829"
+            timestampString = "462181669.247485"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "didBeginContact(_:)"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "init(size:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SuperSpaceMan/GameScene.swift"
-            timestampString = "461615591.832829"
+            timestampString = "462181669.247485"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "didBeginContact(_:)"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "init(size:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -54,14 +54,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         
         //add star to the background
         backgroundStarsNode = SKSpriteNode(imageNamed: "Stars")
+        backgroundStarsNode!.size.width = self.frame.size.width
         backgroundStarsNode!.anchorPoint = CGPoint(x: 0.5, y: 0.0)
-        backgroundStarsNode!.position = CGPoint(x: 160.0, y: 0.0)
+        backgroundStarsNode!.position = CGPoint(x: size.width / 2.0, y: 0.0)
         addChild(backgroundStarsNode!)
         
         //add planet to the background
         backgroundPlanetNode = SKSpriteNode(imageNamed: "PlanetStart")
+        backgroundPlanetNode!.size.width = self.frame.size.width
         backgroundPlanetNode!.anchorPoint = CGPoint(x: 0.5, y: 0.0)
-        backgroundPlanetNode!.position = CGPoint(x: 160.0, y: 0.0)
+        backgroundPlanetNode!.position = CGPoint(x: size.width / 2.0, y: 0.0)
         addChild(backgroundPlanetNode!)
         
         // *********************
