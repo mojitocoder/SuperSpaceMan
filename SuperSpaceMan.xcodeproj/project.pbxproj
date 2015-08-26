@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04C513EA1B8DA0C400E0F667 /* EngineExhaust.sks in Resources */ = {isa = PBXBuildFile; fileRef = 04C513E81B8DA0C400E0F667 /* EngineExhaust.sks */; };
+		04C513EB1B8DA0C400E0F667 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 04C513E91B8DA0C400E0F667 /* spark.png */; };
 		317150ED1A58BBC500FEEC9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317150EC1A58BBC500FEEC9E /* AppDelegate.swift */; };
 		317150F11A58BBC500FEEC9E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317150F01A58BBC500FEEC9E /* GameScene.swift */; };
 		317150F31A58BBC500FEEC9E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317150F21A58BBC500FEEC9E /* GameViewController.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04C513E81B8DA0C400E0F667 /* EngineExhaust.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EngineExhaust.sks; sourceTree = "<group>"; };
+		04C513E91B8DA0C400E0F667 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		317150E71A58BBC500FEEC9E /* SuperSpaceMan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperSpaceMan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317150EB1A58BBC500FEEC9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		317150EC1A58BBC500FEEC9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 				317150F91A58BBC500FEEC9E /* LaunchScreen.xib */,
 				317151741A5A189F00FEEC9E /* sprites.atlas */,
 				317150EA1A58BBC500FEEC9E /* Supporting Files */,
+				04C513E81B8DA0C400E0F667 /* EngineExhaust.sks */,
+				04C513E91B8DA0C400E0F667 /* spark.png */,
 			);
 			path = SuperSpaceMan;
 			sourceTree = "<group>";
@@ -200,7 +206,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				317150FB1A58BBC500FEEC9E /* LaunchScreen.xib in Resources */,
+				04C513EB1B8DA0C400E0F667 /* spark.png in Resources */,
 				317150F81A58BBC500FEEC9E /* Images.xcassets in Resources */,
+				04C513EA1B8DA0C400E0F667 /* EngineExhaust.sks in Resources */,
 				317151751A5A189F00FEEC9E /* sprites.atlas in Resources */,
 				317150F61A58BBC500FEEC9E /* Main.storyboard in Resources */,
 			);

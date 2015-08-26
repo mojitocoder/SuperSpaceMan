@@ -9,6 +9,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     var backgroundStarsNode  : SKSpriteNode?
     var backgroundPlanetNode : SKSpriteNode?
     
+    var engineExhaust : SKEmitterNode?
+    
     var playerNode : SKSpriteNode?
     var orbNode : SKSpriteNode?
     var impulseCount : Int32 = 4
@@ -108,6 +110,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 //        foregroundNode!.addChild(orbNode!)
         
         //addExtraPlayers()
+        
+        let engineExhaustPath = NSBundle.mainBundle().pathForResource("EngineExhaust", ofType: "sks")
+        engineExhaust = NSKeyedUnarchiver.unarchiveObjectWithFile(engineExhaustPath!) as? SKEmitterNode;
+        engineExhaust!.position = CGPointMake(0.0, -(playerNode!.size.height / 2));
+        playerNode!.addChild(engineExhaust!)
+        engineExhaust!.hidden = true;
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -133,8 +141,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         }
         
         if (impulseCount > 0) {
+            engineExhaust!.hidden = false
+            
+            //this is an extremely flexible and dynamic way to schedule an invocation
+            //remember the colon at the end of the method name
+            NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "hideEngineExhaust:", userInfo: nil, repeats: false)
+            
             playerNode!.physicsBody!.applyImpulse(CGVectorMake(0.0, impulsePower))
             impulseCount--
+        }
+    }
+    
+    func hideEngineExhaust(timer : NSTimer!){
+        if (!engineExhaust!.hidden) {
+            engineExhaust!.hidden = true
         }
     }
     
